@@ -1,0 +1,35 @@
+{
+  "name": "@moriguin/worklog-api-schema",
+  "version": "0.1.0",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@typespec/compiler": "latest",
+    "@typespec/http": "latest",
+    "@typespec/openapi": "latest",
+    "@typespec/openapi3": "latest",
+    "@typespec/rest": "latest"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^9.8.0",
+    "@orval/core": "^7.9.0",
+    "@types/node": "^22.15.30",
+    "@typespec/compiler": "^1.0.0",
+    "@typespec/http": "latest",
+    "@typespec/openapi": "latest",
+    "@typespec/openapi3": "latest",
+    "@typespec/rest": "latest",
+    "axios": "^1.9.0",
+    "msw": "^2.9.0",
+    "orval": "^7.9.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "private": true,
+  "scripts": {
+    "tsp:compile": "tsp compile .",
+    "tsp:format": "tsp format \"**/*.tsp\""
+  }
+}
