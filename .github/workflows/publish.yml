@@ -2,8 +2,8 @@ name: Publish to npm
 
 on:
   push:
-    tags:
-      - "v*.*.*"
+    branches:
+      - master
 
 jobs:
   publish:
@@ -23,10 +23,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # - name: Who am I
-      #   run: npm whoami
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_GITHUB_PAT }}
+      - name: Run npm audit fix
+        run: npm audit fix
+
+      - name: Bump patch version
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          npm version patch
+          git push --follow-tags
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_GITHUB_PAT }}
 
       - name: Publish to npm
         run: npm publish

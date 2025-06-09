@@ -7,5 +7,4 @@ node_modules/
 
 .env*
 
-# github actionで先にnpmrcが存在するとコケる可能性.
 .npmrc
