@@ -24,7 +24,7 @@
     "@typespec/openapi3": "latest",
     "@typespec/rest": "latest",
     "axios": "^1.9.0",
-    "msw": "^2.9.0",
+    "msw": "^2.10.2",
     "orval": "^7.9.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
