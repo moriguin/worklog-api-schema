@@ -3,7 +3,7 @@ name: Publish to npm
 on:
   push:
     tags:
-      - "v*.*.*" # v1.0.0 形式のタグが push されたときに実行
+      - "v*.*.*"
 
 jobs:
   publish:
@@ -16,12 +16,17 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          registry-url: "https://npm.pkg.github.com/"
+          node-version: .node-version
+          registry-url: https://npm.pkg.github.com/
           scope: "@moriguin"
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Who am I
+        run: npm whoami
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_GITHUB_PAT }}
 
       - name: Publish to npm
         run: npm publish
