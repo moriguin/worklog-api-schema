@@ -9,7 +9,7 @@
 
 ```
 .
-├── src/                 # TypeSpec ファイル群
+├── main.tsp             # TypeSpec ファイル
 ├── openapi.yaml         # 自動生成された OpenAPI 仕様
 ├── ts/                  # orval によって自動生成された TypeScript クライアントコード
 ├── orval.config.ts      # orval 設定ファイル
