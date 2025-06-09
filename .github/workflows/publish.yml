@@ -23,10 +23,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Who am I
-        run: npm whoami
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_GITHUB_PAT }}
+      # - name: Who am I
+      #   run: npm whoami
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_GITHUB_PAT }}
 
       - name: Publish to npm
         run: npm publish
