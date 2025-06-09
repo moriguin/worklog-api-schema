@@ -1,9 +1,11 @@
 {
   "name": "@moriguin/worklog-api-schema",
-  "version": "0.1.0",
+  "version": "0.1.10",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
+  "main": "ts/src/index.ts",
+  "types": "ts/src/index.ts",
   "type": "module",
   "peerDependencies": {
     "@typespec/compiler": "latest",
@@ -27,9 +29,19 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   },
-  "private": true,
   "scripts": {
     "tsp:compile": "tsp compile .",
-    "tsp:format": "tsp format \"**/*.tsp\""
+    "tsp:format": "tsp format \"**/*.tsp\"",
+    "orval": "orval --config orval.config.ts",
+    "all": "npm run tsp:compile && npm run orval"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moriguin/worklog-api-schema.git"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
