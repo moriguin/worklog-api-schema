@@ -97,4 +97,11 @@ npm run orval
 
 # または両方まとめて実行
 npm run all
+
+# サーバー側コードの生成
+npx openapi-generator-cli generate \
+  -i ./tsp-output/schema/openapi.yaml \
+  -g kotlin-spring \
+  -o ./build/generated \
+  --additional-properties=interfaceOnly=true,useTags=true,useJakartaEe=true,javaxPackage=jakarta,apiPackage=com.moriguin.worklog.generated.api,modelPackage=com.moriguin.worklog.generated.model
 ```
