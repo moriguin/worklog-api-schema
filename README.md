@@ -1,16 +1,18 @@
 # Worklog API Schema
 
-このリポジトリは、[TypeSpec](https://typespec.io/) を用いて API スキーマを定義し、OpenAPI 形式の仕様を生成し、[orval](https://orval.dev/) によって TypeScript クライアントコードを生成するためのものです。
+このリポジトリは、[TypeSpec](https://typespec.io/) を用いて API スキーマを定義し、OpenAPI 形式の仕様を生成し、[orval](https://orval.dev/) によって TypeScript クライアントコードを生成、
+gradleによって Kotlin-Spring のコードを生成するものです。
 
 ## 📦 パッケージ更新手順（for maintainers）
 
-このプロジェクトは GitHub Packages（npm）に公開されるスキーマライブラリです。
+このプロジェクトは GitHub Packages（npm）と GitHub Packages（Maven） に公開されるスキーマライブラリです。
 @moriguin/worklog-api-schema を更新して別リポジトリから利用するには、以下の手順に従ってください。
 
 ```
 .
 ├── main.tsp             # TypeSpec ファイル
 ├── openapi.yaml         # 自動生成された OpenAPI 仕様
+├── build/generated      # gradle によって自動生成された Kotlin クライアントコード
 ├── ts/                  # orval によって自動生成された TypeScript クライアントコード
 ├── orval.config.ts      # orval 設定ファイル
 ├── tspconfig.yaml       # TypeSpec 設定ファイル
@@ -48,10 +50,13 @@ read:packages
 以下のコマンドで公開：
 
 ```bash
+# npm
 dotenv -e .env -- npm publish
+# Maven
+./gradlew publish
 ```
 
-成功すると、GitHub の Packages タブに反映されます（最大30分程度かかることもあります）。
+成功すると、GitHub の Packages タブに反映されます（初回は翌日にやっと表示）。
 
 ```bash
 dotenv -e .env -- npm view @moriguin/worklog-api-schema --registry=https://npm.pkg.github.com
@@ -69,7 +74,7 @@ dotenv -e .env -- npm view @moriguin/worklog-api-schema --registry=https://npm.p
 }
 ```
 
-npm whoami は .npmrc を直接読むらしい（dotennvしてもダメ）
+※memo : npm whoami は .npmrc を直接読むらしい（dotennvしてもダメ）
 
 ```
 export GITHUB_PAT=ghp_xxxxxxxx
