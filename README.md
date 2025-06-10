@@ -63,9 +63,9 @@ dotenv -e .env -- npm view @moriguin/worklog-api-schema --registry=https://npm.p
 
 誰でもインストールできるようにしたい場合は package.json に以下を追加：
 
-```json
+```
 "publishConfig": {
-"access": "public"
+  "access": "public"
 }
 ```
 

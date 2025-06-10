@@ -1,4 +1,4 @@
-name: Publish to npm
+name: Publish to GitHub Packages
 
 on:
   push:
@@ -16,6 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # ────────────── npm 用 ──────────────
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -51,7 +52,24 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_GITHUB_PAT }}
 
-      - name: Publish to npm
+      - name: Publish to GitHub Packages (npm)
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_GITHUB_PAT }}
+
+      # ────────────── Gradle (Maven) 用 ──────────────
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'gradle'
+
+      - name: Grant execute permission to Gradle wrapper
+        run: chmod +x ./gradlew
+
+      - name: Publish to GitHub Packages (Maven)
+        run: ./gradlew publish
+        env:
+          USERNAME: ${{ github.actor }}
+          TOKEN: ${{ secrets.PUBLISH_GITHUB_PAT }}
