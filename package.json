@@ -8,11 +8,11 @@
   "types": "ts/src/index.ts",
   "type": "module",
   "peerDependencies": {
-    "@typespec/compiler": "latest",
-    "@typespec/http": "latest",
-    "@typespec/openapi": "latest",
-    "@typespec/openapi3": "latest",
-    "@typespec/rest": "latest"
+    "@typespec/compiler": "^1.1.0",
+    "@typespec/http": "^1.1.0",
+    "@typespec/openapi": "^1.1.0",
+    "@typespec/openapi3": "^1.1.0",
+    "@typespec/rest": "^0.71.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.8.0",
@@ -20,10 +20,10 @@
     "@orval/core": "^7.9.0",
     "@types/node": "^24.0.0",
     "@typespec/compiler": "^1.0.0",
-    "@typespec/http": "latest",
-    "@typespec/openapi": "latest",
-    "@typespec/openapi3": "latest",
-    "@typespec/rest": "latest",
+    "@typespec/http": "^1.1.0",
+    "@typespec/openapi": "^1.1.0",
+    "@typespec/openapi3": "^1.1.0",
+    "@typespec/rest": "^0.71.0",
     "axios": "^1.9.0",
     "msw": "^2.10.2",
     "orval": "^7.9.0",
@@ -34,7 +34,7 @@
     "tsp:compile": "tsp compile .",
     "tsp:format": "tsp format \"**/*.tsp\"",
     "orval": "orval --config orval.config.ts",
-    "all": "npm run tsp:compile && npm run orval"
+    "all": "npm run tsp:compile && npm run orval --config orval.config.ts"
   },
   "repository": {
     "type": "git",
