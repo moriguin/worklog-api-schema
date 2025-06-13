@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.github.moriguin"
-version = "0.0.2"
+version = "0.0.3"
 
 repositories {
     mavenCentral()
@@ -24,6 +24,8 @@ java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(21))
     }
+    withSourcesJar()
+    withJavadocJar()
 }
 
 kotlin {
