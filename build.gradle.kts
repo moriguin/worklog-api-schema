@@ -39,10 +39,8 @@ release {
     failOnSnapshotDependencies = false
 }
 
-tasks.named("initScmAdapter") {
-    doFirst {
-        project.extensions.extraProperties["release.branch"] = "master"
-    }
+gradle.taskGraph.whenReady {
+    project.extensions.extraProperties["release.branch"] = "master"
 }
 
 publishing {
