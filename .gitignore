@@ -14,5 +14,7 @@ node_modules/
 bin/*
 !Resource
 
+# 生成物をコミットしない
 build/*
-!generated
+/tsp-output/
+/ts/src/api/

@@ -43,6 +43,33 @@ jobs:
             echo "No changes to commit."
           fi
 
+      # ────────────── スキーマ・クライアント生成処理 ──────────────
+      - name: Run TypeSpec compile & Orval
+        run: |
+          npm run tsp:compile
+          npm run orval
+
+      - name: Generate Kotlin code from openapi.yaml
+        run: |
+          npx openapi-generator-cli generate \
+            -i ./tsp-output/schema/openapi.yaml \
+            -g kotlin-spring \
+            -o ./build/generated \
+            --additional-properties=interfaceOnly=true,useTags=true,useJakartaEe=true,javaxPackage=jakarta,apiPackage=com.moriguin.worklog.generated.api,modelPackage=com.moriguin.worklog.generated.model
+
+      - name: Commit generated code
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: generate OpenAPI client/server code"
+            git push
+          else
+            echo "No generated code changes to commit."
+          fi
+
+      # ────────────── バージョン更新とnpm公開 ──────────────
       - name: Bump patch version
         run: |
           git config user.name "github-actions[bot]"
