@@ -1,6 +1,6 @@
 {
   "name": "@moriguin/worklog-api-schema",
-  "version": "0.1.26",
+  "version": "0.1.27",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
