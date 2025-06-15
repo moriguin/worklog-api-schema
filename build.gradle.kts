@@ -37,10 +37,7 @@ release {
     tagTemplate = "v${version}"
     newVersionCommitMessage = "chore: bump version to ${version}"
     failOnSnapshotDependencies = false
-}
-
-gradle.taskGraph.whenReady {
-    project.extensions.extraProperties["release.branch"] = "master"
+    requireBranch.set("master")
 }
 
 publishing {
