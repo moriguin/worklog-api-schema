@@ -95,6 +95,20 @@ jobs:
       - name: Grant execute permission to Gradle wrapper
         run: chmod +x ./gradlew
 
+      # releaseタスクでYou have uncommitted filesになるため、コミットしておく
+      - name: Ensure gradlew is executable and committed
+        run: |
+          chmod +x ./gradlew
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add gradlew
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: ensure gradlew is executable"
+            git push
+          else
+            echo "gradlew already in correct state."
+          fi
+
       - name: Run Gradle release task
         run: ./gradlew release -Prelease.useAutomaticVersion=true
         env:
