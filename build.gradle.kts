@@ -37,6 +37,9 @@ release {
     tagTemplate = "v${version}"
     newVersionCommitMessage = "chore: bump version to ${version}"
     failOnSnapshotDependencies = false
+    scm {
+        branch = "master"
+    }
 }
 
 
