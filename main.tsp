@@ -9,8 +9,9 @@ using OpenAPI;
 namespace WorkLogService;
 
 @format("ulid")
-@minLength(1)
-@doc("ユニークな ID")
+@minLength(26)
+@maxLength(26)
+@doc("ULID形式のユニークID")
 scalar Id extends string;
 
 model WorkLog {
