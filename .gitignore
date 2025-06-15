@@ -18,3 +18,4 @@ bin/*
 build/*
 /tsp-output/
 /ts/src/api/
+public/mockServiceWorker.js
