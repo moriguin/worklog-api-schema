@@ -1,3 +1,5 @@
+import net.researchgate.release.ReleaseExtension
+
 plugins {
     kotlin("jvm") version "2.1.21"
     `maven-publish`
@@ -33,11 +35,15 @@ kotlin {
     sourceSets["main"].kotlin.srcDir("build/generated/src/main/kotlin")
 }
 
-release {
-    tagTemplate = "v${version}"
-    newVersionCommitMessage = "chore: bump version to ${version}"
+configure<ReleaseExtension> {
+    tagTemplate = "v${project.version}"
+    newVersionCommitMessage = "chore: bump version to ${project.version}"
     failOnSnapshotDependencies = false
-    requireBranch.set("master")
+    ignoredSnapshotDependencies.set(listOf("net.researchgate:gradle-release"))
+
+    git {
+        requireBranch.set("master")
+    }
 }
 
 publishing {
