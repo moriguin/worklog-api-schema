@@ -95,6 +95,11 @@ jobs:
       - name: Grant execute permission to Gradle wrapper
         run: chmod +x ./gradlew
 
+      - name: Run Gradle release task
+        run: ./gradlew release -Prelease.useAutomaticVersion=true
+        env:
+          GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_PAT }}
+
       - name: Publish to GitHub Packages (Maven)
         run: ./gradlew publish
         env:

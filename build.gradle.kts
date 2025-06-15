@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "2.1.21"
     `maven-publish`
+    id("net.researchgate.release") version "3.1.0"
 }
 
 group = "com.github.moriguin"
@@ -30,6 +31,12 @@ java {
 
 kotlin {
     sourceSets["main"].kotlin.srcDir("build/generated/src/main/kotlin")
+}
+
+release {
+    tagTemplate = "v${version}"
+    newVersionCommitMessage = "chore: bump version to ${version}"
+    failOnSnapshotDependencies = false
 }
 
 
