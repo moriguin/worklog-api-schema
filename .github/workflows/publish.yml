@@ -70,7 +70,7 @@ jobs:
       - name: Check version match between package.json and gradle.properties
         run: |
           JS_VERSION=$(node -p "require('./package.json').version")
-          GRADLE_VERSION=$(grep '^version=' gradle.properties | cut -d= -f2 | xargs)
+          GRADLE_VERSION=$(grep '^version=' gradle.properties | cut -d= -f2 | tr -d '\r\n')
           echo "package.json version: $JS_VERSION"
           echo "gradle.properties version: $GRADLE_VERSION"
           if [ "$JS_VERSION" != "$GRADLE_VERSION" ]; then
