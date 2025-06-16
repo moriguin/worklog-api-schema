@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.github.moriguin"
-version = "0.0.5-SNAPSHOT"
+version = project.version
 
 repositories {
     mavenCentral()
