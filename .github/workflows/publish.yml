@@ -116,9 +116,3 @@ jobs:
         run: ./gradlew release -Prelease.useAutomaticVersion=true
         env:
           GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_PAT }}
-
-      - name: Publish to GitHub Packages (Maven)
-        run: ./gradlew publish
-        env:
-          USERNAME: ${{ github.actor }}
-          TOKEN: ${{ secrets.PUBLISH_GITHUB_PAT }}
