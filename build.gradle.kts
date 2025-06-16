@@ -15,7 +15,7 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    implementation("org.springframework.boot:spring-boot-starter-web:3.2.5")
+    implementation("org.springframework.boot:spring-boot-starter-web:3.5.0")
     implementation("jakarta.validation:jakarta.validation-api:3.1.1")
     implementation("jakarta.servlet:jakarta.servlet-api:6.1.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.19.0")
