@@ -73,16 +73,16 @@ interface WorkLogApi {
   ): WorkLogAggregation | ApiError;
 
   /** WorkLog を取得 */
-  @get read(@path id: int32): WorkLog | ApiError;
+  @get read(@path id: Id): WorkLog | ApiError;
 
   /** WorkLog を作成 */
   @post create(@body body: RequestWorkLog): WorkLog | ApiError;
 
   /** WorkLog を更新 */
   #suppress "@typespec/http/patch-implicit-optional"
-  @patch update(@path id: int32, @body body: RequestWorkLog): WorkLog | ApiError;
+  @patch update(@path id: Id, @body body: RequestWorkLog): WorkLog | ApiError;
 
   /** WorkLog を削除 */
-  @delete delete(@path id: int32): void | ApiError;
+  @delete delete(@path id: Id): void | ApiError;
 }
 
