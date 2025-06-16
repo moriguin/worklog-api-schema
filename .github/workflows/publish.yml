@@ -57,11 +57,6 @@ jobs:
             --additional-properties=interfaceOnly=true,useTags=true,useJakartaEe=true,javaxPackage=jakarta,apiPackage=com.moriguin.worklog.generated.api,modelPackage=com.moriguin.worklog.generated.model
 
       # ---------- npm & Maven Publish ----------
-      - name: Publish to GitHub Packages (npm)
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_GITHUB_PAT }}
-
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
@@ -76,12 +71,19 @@ jobs:
         run: |
           JS_VERSION=$(node -p "require('./package.json').version")
           GRADLE_VERSION=$(grep '^version=' gradle.properties | cut -d= -f2)
+          echo "package.json version: $JS_VERSION"
+          echo "gradle.properties version: $GRADLE_VERSION"
           if [ "$JS_VERSION" != "$GRADLE_VERSION" ]; then
             echo "❌ Version mismatch! package.json=$JS_VERSION vs gradle.properties=$GRADLE_VERSION"
             exit 1
           else
             echo "✅ Version match confirmed."
           fi
+
+      - name: Publish to GitHub Packages (npm)
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_GITHUB_PAT }}
 
       - name: Publish to GitHub Packages (Maven)
         run: ./gradlew publish
