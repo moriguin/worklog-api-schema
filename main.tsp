@@ -70,17 +70,17 @@ interface WorkLogApi {
   @get list(
     @doc("YYYY-MM 形式 (例: 2025-07) ")
     @query month: string
-  ): WorkLogAggregation | ApiError;
+  ): WorkLogAggregation;
 
   /** WorkLog を取得 */
-  @get read(@path id: Id): WorkLog | ApiError;
+  @get read(@path id: Id): WorkLog;
 
   /** WorkLog を作成 */
-  @post create(@body body: RequestWorkLog): WorkLog | ApiError;
+  @post create(@body body: RequestWorkLog): WorkLog;
 
   /** WorkLog を更新 */
   #suppress "@typespec/http/patch-implicit-optional"
-  @patch update(@path id: Id, @body body: RequestWorkLog): WorkLog | ApiError;
+  @patch update(@path id: Id, @body body: RequestWorkLog): WorkLog;
 
   /** WorkLog を削除 */
   @delete delete(@path id: Id): void | ApiError;
