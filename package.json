@@ -24,7 +24,7 @@
     "@typespec/openapi": "^1.1.0",
     "@typespec/openapi3": "^1.1.0",
     "@typespec/rest": "^0.71.0",
-    "axios": "^1.9.0",
+    "axios": "^1.10.0",
     "msw": "^2.10.2",
     "orval": "^7.9.0",
     "ts-node": "^10.9.2",
