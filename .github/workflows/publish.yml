@@ -1,4 +1,4 @@
-name: Publish to GitHub Packages
+name: publish-and-release
 
 on:
   push:
@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  publish:
+  build-and-publish:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,7 +18,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      # ────────────── npm 用 ──────────────
+      # ---------- Node.js setup ----------
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -29,23 +29,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run npm audit fix
-        run: npm audit fix || true
-
-      - name: Commit audit fixes
+      - name: Run npm audit fix & commit
         run: |
+          npm audit fix || true
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add package-lock.json
           git add package-lock.json
           if ! git diff --cached --quiet; then
             git commit -m "chore: audit fix"
             git push
           else
-            echo "No changes to commit."
+            echo "No audit changes to commit."
           fi
 
-      # ────────────── スキーマ・クライアント生成処理 ──────────────
+      # ---------- Code Generation ----------
       - name: Run TypeSpec compile & Orval
         run: |
           npm run tsp:compile
@@ -59,60 +56,57 @@ jobs:
             -o ./build/generated \
             --additional-properties=interfaceOnly=true,useTags=true,useJakartaEe=true,javaxPackage=jakarta,apiPackage=com.moriguin.worklog.generated.api,modelPackage=com.moriguin.worklog.generated.model
 
-      - name: Commit generated code
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          if ! git diff --cached --quiet; then
-            git commit -m "chore: generate OpenAPI client/server code"
-            git push
-          else
-            echo "No generated code changes to commit."
-          fi
-
-      # ────────────── バージョン更新とnpm公開 ──────────────
-      - name: Bump patch version
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase origin master
-          npm version patch
-          git push --follow-tags
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_GITHUB_PAT }}
-
+      # ---------- npm & Maven Publish ----------
       - name: Publish to GitHub Packages (npm)
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_GITHUB_PAT }}
 
-      # ────────────── Gradle (Maven) 用 ──────────────
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: "temurin"
           java-version: "21"
-          cache: "gradle"
+          cache: gradle
 
       - name: Grant execute permission to Gradle wrapper
         run: chmod +x ./gradlew
 
-      # releaseタスクでYou have uncommitted filesになるため、コミットしておく
-      - name: Ensure gradlew is executable and committed
+      - name: Check version match between package.json and gradle.properties
         run: |
-          chmod +x ./gradlew
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add gradlew
-          if ! git diff --cached --quiet; then
-            git commit -m "chore: ensure gradlew is executable"
-            git push
+          JS_VERSION=$(node -p "require('./package.json').version")
+          GRADLE_VERSION=$(grep '^version=' gradle.properties | cut -d= -f2)
+          if [ "$JS_VERSION" != "$GRADLE_VERSION" ]; then
+            echo "❌ Version mismatch! package.json=$JS_VERSION vs gradle.properties=$GRADLE_VERSION"
+            exit 1
           else
-            echo "gradlew already in correct state."
+            echo "✅ Version match confirmed."
           fi
 
-      - name: Run Gradle release task
-        run: ./gradlew release -Prelease.useAutomaticVersion=true
+      - name: Publish to GitHub Packages (Maven)
+        run: ./gradlew publish
         env:
-          GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_PAT }}
+          USERNAME: ${{ github.actor }}
+          TOKEN: ${{ secrets.PUBLISH_GITHUB_PAT }}
+
+      # ---------- Tag published version ----------
+      - name: Tag published version
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          VERSION=$(node -p "require('./package.json').version")
+          git tag v$VERSION
+          git push origin master --follow-tags
+
+      # ---------- Bump to next patch version ----------
+      - name: Bump to next patch version
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          NEXT_VERSION=$(npm version patch --no-git-tag-version)
+          sed -i "s/^version=.*/version=${NEXT_VERSION#v}/" gradle.properties
+          git add package.json package-lock.json gradle.properties
+          git commit -m "chore: prepare next version ${NEXT_VERSION}"
+          git push origin master
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_GITHUB_PAT }}
