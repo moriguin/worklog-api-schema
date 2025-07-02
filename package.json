@@ -4,8 +4,18 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
-  "main": "ts/src/index.ts",
-  "types": "ts/src/index.ts",
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js",
+      "require": "./dist/src/index.js"
+    }
+  },
   "type": "module",
   "peerDependencies": {
     "@typespec/compiler": "^1.1.0",
@@ -35,7 +45,9 @@
     "tsp:format": "tsp format \"**/*.tsp\"",
     "orval": "orval --config orval.config.ts",
     "generate:kotlin": "npx openapi-generator-cli generate -i ./tsp-output/schema/openapi.yaml -g kotlin-spring -o ./build/generated --additional-properties=interfaceOnly=true,useTags=true,useJakartaEe=true,javaxPackage=jakarta,apiPackage=com.moriguin.worklog.generated.api,modelPackage=com.moriguin.worklog.generated.model",
-    "generate:all": "npm run tsp:compile && npm run orval && npm run generate:kotlin"
+    "generate:all": "npm run tsp:compile && npm run orval && npm run generate:kotlin",
+    "build": "tsc",
+    "prepare": "npm run generate:all && npm run build"
   },
   "repository": {
     "type": "git",

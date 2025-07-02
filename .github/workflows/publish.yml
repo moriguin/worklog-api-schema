@@ -48,6 +48,9 @@ jobs:
           npm run tsp:compile
           npm run orval
 
+      - name: Build TypeScript
+        run: npm run build
+
       - name: Generate Kotlin code from openapi.yaml
         run: |
           npx openapi-generator-cli generate \

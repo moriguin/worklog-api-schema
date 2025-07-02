@@ -9,7 +9,10 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    "rootDir": "./ts"
+    "rootDir": "./ts",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true
   },
   "include": ["ts/**/*"],
   "exclude": ["node_modules"]
