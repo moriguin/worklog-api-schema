@@ -23,16 +23,16 @@ model WorkLog {
   date: string;
 
   @doc("当日の合計労働時間 (時間単位)")
-  @example(5)
-  total_h: int32;
+  @example(5.5)
+  total_h: float32;
 
   @doc("当日のコミュニケーション時間 (時間単位)")
-  @example(2)
-  comm_h: int32;
+  @example(2.5)
+  comm_h: float32;
 
   @doc("当日のコーディングなどの作業時間 (時間単位)")
-  @example(3)
-  work_h: int32;
+  @example(3.0)
+  work_h: float32;
 
   @doc("メモ")
   @example("")
@@ -42,20 +42,28 @@ model WorkLog {
 
 model WorkLogAggregation {
   @doc("その月の合計労働時間 (時間単位)")
-  total_h: int32;
+  total_h: float32;
 
   @doc("その月の合計コミュニケーション時間 (時間単位)")
-  comm_h: int32;
+  comm_h: float32;
 
   @doc("その月の合計作業時間 (時間単位)")
-  work_h: int32;
+  work_h: float32;
 
   @doc("日ごとのワークログ一覧")
   logs: WorkLog[];
 }
 
 @withoutOmittedProperties("id" | "total_h")
-model RequestWorkLog is WorkLog;
+model RequestWorkLog is WorkLog {
+  @minValue(0)
+  @maxValue(8)
+  work_h: float32;
+
+  @minValue(0)
+  @maxValue(8)
+  comm_h: float32;
+}
 
 @error
 model ApiError {
