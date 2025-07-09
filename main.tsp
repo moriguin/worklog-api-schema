@@ -55,15 +55,12 @@ model WorkLogAggregation {
 }
 
 @withoutOmittedProperties("id" | "total_h")
-model RequestWorkLog is WorkLog {
-  @minValue(0)
-  @maxValue(8)
-  work_h: float32;
+model RequestWorkLog is WorkLog;
 
-  @minValue(0)
-  @maxValue(8)
-  comm_h: float32;
-}
+@@minValue(RequestWorkLog.work_h, 0);
+@@maxValue(RequestWorkLog.work_h, 8);
+@@minValue(RequestWorkLog.comm_h, 0);
+@@maxValue(RequestWorkLog.comm_h, 8);
 
 @error
 model ApiError {
