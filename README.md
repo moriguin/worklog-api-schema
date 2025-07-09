@@ -1,7 +1,7 @@
 # Worklog API Schema
 
-このリポジトリは、[TypeSpec](https://typespec.io/) を用いて API スキーマを定義し、OpenAPI 形式の仕様を生成し、[orval](https://orval.dev/) によって TypeScript クライアントコードを生成、
-gradleによって Kotlin-Spring のコードを生成するものです。
+- このリポジトリは、[TypeSpec](https://typespec.io/) を用いて API スキーマを定義, OpenAPI を生成します。
+- [orval](https://orval.dev/) によって TypeScript クライアントコードを生成、gradleによって Kotlin-Spring のコードを生成します。
 
 ## 📦 パッケージ更新手順（for maintainers）
 
@@ -94,19 +94,8 @@ dotenv -e .env -- npm install @moriguin/worklog-api-schema
 ### スキーマ更新後に必要な手順：
 
 ```bash
-# 1. TypeSpec から OpenAPI を生成
+# TypeSpecコンパイル
 npm run tsp:compile
-
-# 2. OpenAPI から TypeScript クライアントを生成
-npm run orval
-
-# または両方まとめて実行
-npm run all
-
-# サーバー側コードの生成
-npx openapi-generator-cli generate \
-  -i ./tsp-output/schema/openapi.yaml \
-  -g kotlin-spring \
-  -o ./build/generated \
-  --additional-properties=interfaceOnly=true,useTags=true,useJakartaEe=true,javaxPackage=jakarta,apiPackage=com.moriguin.worklog.generated.api,modelPackage=com.moriguin.worklog.generated.model
+# 全部いり
+npm run generate:all
 ```
