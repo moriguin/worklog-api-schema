@@ -86,3 +86,20 @@ interface WorkLogApi {
   @delete delete(@path id: Id): void | ApiError;
 }
 
+model Me {
+  @doc("ユーザー名")
+  @maxLength(255)
+  name: string;
+
+  @doc("プロフィール画像URL")
+  @format("uri")
+  picture: url;
+}
+
+@route("/me")
+@tag("User")
+interface UserApi {
+  /** ログインユーザー情報を取得 */
+  @get read(): Me;
+}
+
