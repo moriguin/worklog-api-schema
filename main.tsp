@@ -14,6 +14,11 @@ namespace WorkLogService;
 @doc("ULID形式のユニークID")
 scalar Id extends string;
 
+@doc("高精度な10進数値を表す文字列")
+@format("decimal")
+@pattern("^-?\\d+(\\.\\d+)?$")
+scalar Decimal extends string;
+
 model WorkLog {
   id: Id;
 
@@ -23,16 +28,16 @@ model WorkLog {
   date: string;
 
   @doc("当日の合計労働時間 (時間単位)")
-  @example(5.5)
-  total_h: float32;
+  @example("5.5")
+  total_h: Decimal;
 
   @doc("当日のコミュニケーション時間 (時間単位)")
-  @example(2.5)
-  comm_h: float32;
+  @example("2.5")
+  comm_h: Decimal;
 
   @doc("当日のコーディングなどの作業時間 (時間単位)")
-  @example(3.0)
-  work_h: float32;
+  @example("3.0")
+  work_h: Decimal;
 
   @doc("メモ")
   @example("")
@@ -42,13 +47,13 @@ model WorkLog {
 
 model WorkLogAggregation {
   @doc("その月の合計労働時間 (時間単位)")
-  total_h: float32;
+  total_h: Decimal;
 
   @doc("その月の合計コミュニケーション時間 (時間単位)")
-  comm_h: float32;
+  comm_h: Decimal;
 
   @doc("その月の合計作業時間 (時間単位)")
-  work_h: float32;
+  work_h: Decimal;
 
   @doc("日ごとのワークログ一覧")
   logs: WorkLog[];
@@ -57,10 +62,8 @@ model WorkLogAggregation {
 @withoutOmittedProperties("id" | "total_h")
 model RequestWorkLog is WorkLog;
 
-@@minValue(RequestWorkLog.work_h, 0);
-@@maxValue(RequestWorkLog.work_h, 8);
-@@minValue(RequestWorkLog.comm_h, 0);
-@@maxValue(RequestWorkLog.comm_h, 8);
+@@pattern(RequestWorkLog.work_h, "^([0-7](\\.\\d+)?|8(\\.0+)?)$");
+@@pattern(RequestWorkLog.comm_h, "^([0-7](\\.\\d+)?|8(\\.0+)?)$");
 
 @error
 model ApiError {
