@@ -71,7 +71,7 @@ model ApiError {
   message: string;
 }
 
-@route("/worklogs")
+@route("/api/worklogs")
 @tag("WorkLogs")
 interface WorkLogApi {
   /** WorkLog の一覧を取得 */
@@ -104,7 +104,7 @@ model Me {
   picture: url;
 }
 
-@route("/me")
+@route("/api/me")
 @tag("User")
 interface UserApi {
   /** ログインユーザー情報を取得 */
