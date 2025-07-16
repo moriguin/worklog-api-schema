@@ -45,6 +45,23 @@ model WorkLog {
   memo?: string;
 }
 
+model Target {
+  id: Id;
+
+  @doc("YYYY-MM 形式")
+  @example("2025-07")
+  month: string;
+
+  @doc("目標労働時間 (時間単位)")
+  @example("160.0")
+  target_h?: Decimal;
+
+  @doc("目標アクション")
+  @example("残業NG！個人開発用の時間を確保する！")
+  @maxLength(500)
+  target_action?: string;
+}
+
 model WorkLogAggregation {
   @doc("その月の合計労働時間 (時間単位)")
   total_h: Decimal;
@@ -55,12 +72,18 @@ model WorkLogAggregation {
   @doc("その月の合計作業時間 (時間単位)")
   work_h: Decimal;
 
+  @doc("その月の目標データ")
+  target?: Target;
+
   @doc("日ごとのワークログ一覧")
   logs: WorkLog[];
 }
 
 @withoutOmittedProperties("id" | "total_h")
 model RequestWorkLog is WorkLog;
+
+@withoutOmittedProperties("id" | "month")
+model RequestTarget is Target;
 
 @@pattern(RequestWorkLog.work_h, "^([0-7](\\.\\d+)?|8(\\.0+)?)$");
 @@pattern(RequestWorkLog.comm_h, "^([0-7](\\.\\d+)?|8(\\.0+)?)$");
@@ -92,6 +115,32 @@ interface WorkLogApi {
 
   /** WorkLog を削除 */
   @delete delete(@path id: Id): void | ApiError;
+}
+
+@route("/api/targets")
+@tag("Targets")
+interface TargetApi {
+
+  /** 目標を作成 */
+  @post create(
+    @doc("YYYY-MM 形式 (例: 2025-07) ")
+    @query month: string,
+    @body body: RequestTarget
+  ): Target;
+
+  /** 目標を更新 */
+  #suppress "@typespec/http/patch-implicit-optional"
+  @patch update(
+    @doc("YYYY-MM 形式 (例: 2025-07) ")
+    @query month: string,
+    @body body: RequestTarget
+  ): Target;
+
+  /** 目標を削除 */
+  @delete delete(
+    @doc("YYYY-MM 形式 (例: 2025-07) ")
+    @query month: string
+  ): void | ApiError;
 }
 
 model Me {
