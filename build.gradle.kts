@@ -1,7 +1,7 @@
 import net.researchgate.release.ReleaseExtension
 
 plugins {
-    kotlin("jvm") version "2.1.21"
+    kotlin("jvm") version "2.2.0"
     `maven-publish`
     id("net.researchgate.release") version "3.1.0"
 }
