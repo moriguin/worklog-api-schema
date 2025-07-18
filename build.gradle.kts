@@ -19,6 +19,7 @@ dependencies {
     implementation("jakarta.servlet:jakarta.servlet-api:6.1.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("io.swagger.core.v3:swagger-annotations:2.2.34")
+    implementation("io.swagger.core.v3:swagger-models:2.2.34")
 }
 
 java {
