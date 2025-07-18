@@ -44,7 +44,7 @@
     "tsp:compile": "tsp compile .",
     "tsp:format": "tsp format \"**/*.tsp\"",
     "orval": "orval --config orval.config.ts",
-    "generate:kotlin": "npx openapi-generator-cli generate -i ./tsp-output/schema/openapi.yaml -g kotlin-spring -o ./build/generated --additional-properties=interfaceOnly=true,useTags=true,useJakartaEe=true,javaxPackage=jakarta,apiPackage=com.moriguin.worklog.generated.api,modelPackage=com.moriguin.worklog.generated.model",
+    "generate:kotlin": "npx openapi-generator-cli generate -i ./tsp-output/schema/openapi.yaml -g kotlin-spring -o ./build/generated --additional-properties=interfaceOnly=true,useTags=true,useSpringBoot3=true,apiPackage=com.moriguin.worklog.generated.api,modelPackage=com.moriguin.worklog.generated.model",
     "generate:all": "npm run tsp:compile && npm run orval && npm run generate:kotlin",
     "build": "tsc",
     "prepare": "npm run generate:all && npm run build"

@@ -57,7 +57,7 @@ jobs:
             -i ./tsp-output/schema/openapi.yaml \
             -g kotlin-spring \
             -o ./build/generated \
-            --additional-properties=interfaceOnly=true,useTags=true,useJakartaEe=true,javaxPackage=jakarta,apiPackage=com.moriguin.worklog.generated.api,modelPackage=com.moriguin.worklog.generated.model
+            --additional-properties=interfaceOnly=true,useTags=true,useSpringBoot3=true,apiPackage=com.moriguin.worklog.generated.api,modelPackage=com.moriguin.worklog.generated.model
 
       # ---------- npm & Maven Publish ----------
       - name: Set up Java
