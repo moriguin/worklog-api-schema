@@ -1,0 +1,30 @@
+# Source files
+ts/
+*.ts
+!dist/**/*.d.ts
+
+# Config files
+tsconfig.json
+orval.config.ts
+tspconfig.yaml
+main.tsp
+
+# Build files
+build/
+gradle/
+*.gradle.kts
+gradlew
+gradlew.bat
+openapitools.json
+
+# Dev dependencies
+node_modules/
+public/
+
+# Output
+tsp-output/
+
+# Other
+.git/
+.gitignore
+README.md
