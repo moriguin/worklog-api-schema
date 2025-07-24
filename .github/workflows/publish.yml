@@ -3,7 +3,7 @@ name: publish-and-release
 on:
   push:
     branches:
-      - master
+      - main
 
 permissions:
   contents: write
@@ -27,7 +27,7 @@ jobs:
           scope: "@moriguin"
 
       - name: Install dependencies
-        run: npm ci
+        run: rm -f package-lock.json && npm install
 
       - name: Run npm audit fix & commit
         run: |
