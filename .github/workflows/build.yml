@@ -1,0 +1,51 @@
+name: Build
+
+on:
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ./.node-version
+
+      - name: Install dependencies
+        run: rm -f package-lock.json && npm install
+
+      - name: Run TypeSpec compile & Orval
+        run: |
+          npm run tsp:compile
+          npm run orval
+
+      - name: Build TypeScript
+        run: npm run build
+
+      - name: Generate Kotlin code from openapi.yaml
+        run: |
+          npx openapi-generator-cli generate \
+            -i ./tsp-output/schema/openapi.yaml \
+            -g kotlin-spring \
+            -o ./build/generated \
+            --additional-properties=interfaceOnly=true,useTags=true,useSpringBoot3=true,apiPackage=com.moriguin.worklog.generated.api,modelPackage=com.moriguin.worklog.generated.model
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "21"
+          cache: gradle
+
+      - name: Grant execute permission to Gradle wrapper
+        run: chmod +x ./gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build
