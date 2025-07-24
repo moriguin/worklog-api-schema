@@ -101,7 +101,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           VERSION=$(node -p "require('./package.json').version")
           git tag v$VERSION
-          git push origin master --follow-tags
+          git push origin main --follow-tags
 
       # ---------- Bump to next patch version ----------
       - name: Bump to next patch version
@@ -112,6 +112,6 @@ jobs:
           sed -i "s/^version=.*/version=${NEXT_VERSION#v}/" gradle.properties
           git add package.json package-lock.json gradle.properties
           git commit -m "chore: prepare next version ${NEXT_VERSION}"
-          git push origin master
+          git push origin main
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_GITHUB_PAT }}
