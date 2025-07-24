@@ -22,7 +22,7 @@
     "@typespec/http": "^1.1.0",
     "@typespec/openapi": "^1.1.0",
     "@typespec/openapi3": "^1.1.0",
-    "@typespec/rest": "^0.71.0"
+    "@typespec/rest": "^0.72.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.8.0",
@@ -33,7 +33,7 @@
     "@typespec/http": "^1.1.0",
     "@typespec/openapi": "^1.1.0",
     "@typespec/openapi3": "^1.1.0",
-    "@typespec/rest": "^0.71.0",
+    "@typespec/rest": "^0.72.1",
     "axios": "^1.9.0",
     "msw": "^2.10.2",
     "orval": "^7.9.0",
