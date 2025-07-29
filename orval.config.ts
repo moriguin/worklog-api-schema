@@ -9,6 +9,12 @@ export default defineConfig({
       schemas: "./ts/src/api/model",
       client: "axios",
       mock: true,
+      override: {
+        mutator: {
+          path: "./ts/src/api-mutator.ts",
+          name: "customAxiosInstance"
+        }
+      }
     },
   },
 });
