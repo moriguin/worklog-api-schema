@@ -26,6 +26,9 @@ customInstance.interceptors.request.use((config) => {
     if (token) {
       config.headers = config.headers || {};
       config.headers['X-XSRF-TOKEN'] = token;
+      console.log('CSRF Request:', method, token);
+    } else {
+      console.log('CSRF Request: No token found for', method);
     }
   }
   
@@ -39,10 +42,13 @@ customInstance.interceptors.response.use((response) => {
   // レスポンスヘッダーからCSRFトークンを取得
   const csrfToken = response.headers['x-xsrf-token'];
   if (csrfToken) {
+    console.log('CSRF Response:', csrfToken);
     storeCsrfToken(csrfToken);
+  } else {
+    console.log('CSRF Response: No token in response headers');
   }
   
-  return response;
+  return response.data;
 }, (error) => {
   return Promise.reject(error);
 });
