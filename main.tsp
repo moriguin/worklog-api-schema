@@ -160,3 +160,16 @@ interface UserApi {
   @get read(): Me;
 }
 
+@route("/api/login")
+@tag("Auth")
+interface AuthApi {
+  /** ログイン - Google OAuth2認証にリダイレクト */
+  @get login(
+    @doc("認証後のリダイレクト先URL")
+    @query("return_to") returnTo: string
+  ): {
+    @statusCode _: 302;
+    @header("Location") location: string;
+  };
+}
+
