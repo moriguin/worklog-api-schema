@@ -1,7 +1,7 @@
 import net.researchgate.release.ReleaseExtension
 
 plugins {
-    kotlin("jvm") version "2.2.0"
+    kotlin("jvm") version "2.2.21"
     `maven-publish`
     id("net.researchgate.release") version "3.1.0"
 }
@@ -14,11 +14,11 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web:3.5.4")
+    implementation("org.springframework.boot:spring-boot-starter-web:3.5.7")
     implementation("jakarta.validation:jakarta.validation-api:3.1.1")
     implementation("jakarta.servlet:jakarta.servlet-api:6.1.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.19.2")
-    implementation("io.swagger.core.v3:swagger-annotations:2.2.20")
+    implementation("io.swagger.core.v3:swagger-annotations:2.2.39")
     implementation("io.swagger.core.v3:swagger-models:2.2.32")
 }
 
