@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version-file: ./.node-version
 
@@ -38,7 +38,7 @@ jobs:
             --additional-properties=interfaceOnly=true,useTags=true,useSpringBoot3=true,apiPackage=com.moriguin.worklog.generated.api,modelPackage=com.moriguin.worklog.generated.model
 
       - name: Set up Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: "temurin"
           java-version: "21"
