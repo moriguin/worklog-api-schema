@@ -20,7 +20,7 @@
   "peerDependencies": {
     "@typespec/compiler": "^1.1.0",
     "@typespec/http": "^1.1.0",
-    "@typespec/openapi": "^1.1.0",
+    "@typespec/openapi": "^1.5.0",
     "@typespec/openapi3": "^1.1.0",
     "@typespec/rest": "^0.72.1"
   },
@@ -29,16 +29,16 @@
     "@openapitools/openapi-generator-cli": "^2.20.2",
     "@orval/core": "^7.9.0",
     "@types/node": "^24.0.0",
-    "@typespec/compiler": "^1.0.0",
+    "@typespec/compiler": "^1.5.0",
     "@typespec/http": "^1.1.0",
-    "@typespec/openapi": "^1.1.0",
+    "@typespec/openapi": "^1.5.0",
     "@typespec/openapi3": "^1.1.0",
     "@typespec/rest": "^0.72.1",
     "axios": "^1.9.0",
     "msw": "^2.10.2",
     "orval": "^7.9.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.3"
   },
   "scripts": {
     "tsp:compile": "tsp compile .",
