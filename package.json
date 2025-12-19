@@ -21,7 +21,7 @@
     "@typespec/compiler": "^1.1.0",
     "@typespec/http": "^1.1.0",
     "@typespec/openapi": "^1.5.0",
-    "@typespec/openapi3": "^1.1.0",
+    "@typespec/openapi3": "^1.7.0",
     "@typespec/rest": "^0.72.1"
   },
   "devDependencies": {
@@ -32,7 +32,7 @@
     "@typespec/compiler": "^1.5.0",
     "@typespec/http": "^1.1.0",
     "@typespec/openapi": "^1.5.0",
-    "@typespec/openapi3": "^1.1.0",
+    "@typespec/openapi3": "^1.7.0",
     "@typespec/rest": "^0.72.1",
     "axios": "^1.13.2",
     "msw": "^2.10.2",
